@@ -1,0 +1,124 @@
+.product-image {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  border-radius: 12px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-image:after,
+.detail-image:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(16, 43, 28, 0.05) 30%, rgba(16, 43, 28, 0.85) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.product-image img,
+.detail-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.05);
+}
+
+.product-image strong {
+  color: #fff;
+}
+
+.detail-image {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  border-radius: 16px;
+}
+
+.detail-image > div {
+  display: none;
+}
+
+.description {
+  padding-left: 19px;
+}
+
+.description li {
+  margin: 7px 0;
+}
+
+.category {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.category:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+}
+
+.category > span {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #f0fdf4;
+  color: #156b50;
+  font-size: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.category:hover > span {
+  background: #156b50;
+  transform: scale(1.08);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.brand img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.hero-logo {
+  display: block;
+  width: min(240px, 60vw);
+  height: 82px;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 1rem;
+}
+
+.footer-logo {
+  display: block;
+  width: 145px;
+  height: 64px;
+  object-fit: contain;
+  object-position: left center;
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .hero-logo {
+    width: 190px;
+    height: 68px;
+  }
+}

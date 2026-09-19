@@ -1,0 +1,161 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(cuid())
+  name String
+  email String @unique
+  passwordHash String
+  phone String?
+  dateOfBirth DateTime?
+  gender String?
+  city String?
+  state String?
+  marketingConsent Boolean @default(false)
+  role String @default("CUSTOMER")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  seller Seller?
+  carts CartItem[]
+  orders Order[] @relation("CustomerOrders")
+  payments Payment[]
+  notifications Notification[]
+}
+model Seller {
+  id String @id @default(cuid())
+  userId String @unique
+  shopName String
+  description String?
+  address String?
+  city String
+  state String?
+  status String @default("PENDING")
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  products Product[]
+  orders Order[]
+}
+model Category {
+  id String @id @default(cuid())
+  name String @unique
+  slug String @unique
+  description String?
+  products Product[]
+}
+model Product {
+  id String @id @default(cuid())
+  sellerId String
+  categoryId String
+  name String
+  description String
+  images String @default("[]")
+  pricePerDay Int
+  pricePerWeek Int?
+  securityDeposit Int
+  totalStock Int
+  availableStock Int
+  location String
+  condition String @default("Good")
+  specifications String @default("{}")
+  status String @default("ACTIVE")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  seller Seller @relation(fields: [sellerId], references: [id])
+  category Category @relation(fields: [categoryId], references: [id])
+  cartItems CartItem[]
+  orderItems OrderItem[]
+}
+model CartItem {
+  id String @id @default(cuid())
+  userId String
+  productId String
+  quantity Int @default(1)
+  startDate DateTime
+  endDate DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
+model Order {
+  id String @id @default(cuid())
+  customerId String
+  sellerId String
+  rentalAmount Int
+  securityDeposit Int
+  commissionAmount Int
+  totalAmount Int
+  status String @default("BOOKING_CONFIRMED")
+  paymentStatus String @default("PENDING")
+  trackingCode String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  customer User @relation("CustomerOrders", fields: [customerId], references: [id])
+  seller Seller @relation(fields: [sellerId], references: [id])
+  items OrderItem[]
+  payment Payment?
+  trackingEvents TrackingEvent[]
+}
+model OrderItem {
+  id String @id @default(cuid())
+  orderId String
+  productId String
+  name String
+  quantity Int
+  startDate DateTime
+  endDate DateTime
+  pricePerDay Int
+  securityDeposit Int
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+}
+model Payment {
+  id String @id @default(cuid())
+  transactionId String @unique
+  orderId String @unique
+  customerId String
+  amount Int
+  method String
+  status String @default("PENDING")
+  createdAt DateTime @default(now())
+  order Order @relation(fields: [orderId], references: [id])
+  customer User @relation(fields: [customerId], references: [id])
+}
+model TrackingEvent {
+  id String @id @default(cuid())
+  orderId String
+  status String
+  description String
+  timestamp DateTime @default(now())
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  @@index([orderId])
+}
+model Notification {
+  id String @id @default(cuid())
+  userId String
+  title String
+  message String
+  type String @default("ORDER")
+  read Boolean @default(false)
+  orderId String?
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId])
+}
+model Campaign {
+  id String @id @default(cuid())
+  name String
+  channel String
+  segment String
+  template String
+  sentCount Int @default(0)
+  status String @default("DRAFT")
+  createdAt DateTime @default(now())
+}

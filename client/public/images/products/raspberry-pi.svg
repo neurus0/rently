@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" role="img" aria-labelledby="title desc">
+  <title id="title">Raspberry Pi starter kit</title>
+  <desc id="desc">A compact green single-board computer with ports and a red starter-kit case.</desc>
+  <rect width="900" height="700" fill="#edf3f0"/>
+  <ellipse cx="450" cy="590" rx="330" ry="42" fill="#c6d4cf"/>
+  <rect x="180" y="120" width="540" height="420" rx="22" fill="#c92b3c"/>
+  <rect x="220" y="160" width="460" height="340" rx="10" fill="#2f8f67"/>
+  <rect x="270" y="210" width="250" height="170" rx="8" fill="#1d674f"/>
+  <rect x="300" y="240" width="120" height="90" fill="#263d3a"/>
+  <g fill="#d9e7df"><rect x="540" y="205" width="92" height="28" rx="4"/><rect x="540" y="250" width="92" height="28" rx="4"/><rect x="540" y="295" width="92" height="28" rx="4"/><rect x="540" y="340" width="92" height="28" rx="4"/></g>
+  <g fill="#e9c46a"><circle cx="255" cy="190" r="9"/><circle cx="645" cy="190" r="9"/><circle cx="255" cy="470" r="9"/><circle cx="645" cy="470" r="9"/></g>
+  <text x="450" y="610" text-anchor="middle" font-family="Verdana, sans-serif" font-size="30" fill="#36534b">STARTER KIT</text>
+</svg>

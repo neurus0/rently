@@ -1,7 +1,0 @@
-{
-    "prisma.pinToPrisma6": true,
-    "chat.tools.terminal.autoApprove": {
-        "Push-Location": true,
-        "Pop-Location": true
-    }
-}

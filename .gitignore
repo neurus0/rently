@@ -8,3 +8,5 @@ server/.env
 .neon
 .env.local
 /docs
+
+.vscode/

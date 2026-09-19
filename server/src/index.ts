@@ -15,9 +15,28 @@ import tracking from './routes/tracking';
 import notifications from './routes/notifications';
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || 'http://localhost:5173', credentials: true }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://rently-frontend-lilac.vercel.app',
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error(`CORS blocked for origin: ${origin}`));
+      }
+    },
+    credentials: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 app.use(express.json());
 
+app.get('/', (_req, res) => res.json({ service: 'rently-api', status: 'ok', health: '/api/health' }));
 app.get('/api/health', (_req, res) => res.json({ status: 'ok', service: 'rently-api', timestamp: new Date().toISOString() }));
 
 app.use('/api/auth', auth);

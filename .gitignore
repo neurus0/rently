@@ -5,3 +5,6 @@ dist/
 *.db-journal
 client/.env
 server/.env
+.neon
+.env.local
+/docs

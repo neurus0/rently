@@ -268,11 +268,6 @@ The prototype includes demo accounts for different roles.
 | Customer | `ananya@demo.rently` |
 | Seller | `aarav@toolhub.demo` |
 
-Demo password:
-
-```text
-Rently@123
-```
 
 Use demo credentials only for development and demonstrations. Do not use demo passwords in production.
 

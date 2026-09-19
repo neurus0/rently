@@ -7,6 +7,5 @@ client/.env
 server/.env
 .neon
 .env.local
-/docs
-
+docs/   
 .vscode/
